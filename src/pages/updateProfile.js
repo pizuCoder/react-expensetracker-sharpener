@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext, useEffect} from "react";
 import AuthContext from "../Store/storeContext";
 import classes from './updateProfile.module.css';
 import { useHistory } from "react-router-dom";
@@ -9,6 +9,35 @@ function UpdateProfile() {
   const [name, setName] = useState("");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [message, setMessage] = useState('')
+
+    // Fetch user account information and prefill the form fields
+    useEffect(() => {
+        const idToken = authCtx.token;
+        const url = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCQ336T7-e3kArtljvrI5FIakMfAB-X6as";
+        const requestBody = { idToken };
+    
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch user account information");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const user = data.users[0];
+            setName(user.displayName || "");
+            setProfilePictureUrl(user.photoUrl || "");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }, [authCtx.token]);
 
   const handleNameChange = (event) => {
     setName(event.target.value);

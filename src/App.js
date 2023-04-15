@@ -1,10 +1,10 @@
-import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import AuthForm from "./Auth/AuthForm";
 import UpdateProfile from "./pages/updateProfile";
 
 function App() {
-  const history = useHistory();
+  
   return (
     <BrowserRouter>
       <Switch>
