@@ -2,9 +2,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import AuthForm from "./Auth/AuthForm";
 import UpdateProfile from "./pages/updateProfile";
-import VerifyEmail from './Auth/VerifyEmail'
+import VerifyEmail from "./Auth/VerifyEmail";
+import Logout from "./Auth/Logout";
 function App() {
-  
   return (
     <BrowserRouter>
       <Switch>
@@ -15,9 +15,9 @@ function App() {
           <h1>Welcome to Expense Tracker</h1>
           <a href="/profile">
             <button>go to profile page</button>
-            
           </a>
           <VerifyEmail />
+          <Logout />
         </Route>
         <Route path="/profile">
           <UpdateProfile />

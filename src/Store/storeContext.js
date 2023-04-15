@@ -35,7 +35,7 @@ export const AuthContextProvider = (props) => {
   
           if (minutesInactive >= 5) {
             logoutHandler();
-            window.location.href = "/logout"; // Redirect to the logout page
+            window.location.href = "/signup"; // Redirect to the logout page
           }
         };
   
