@@ -1,18 +1,26 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
 
 import AuthForm from "./Auth/AuthForm";
+import UpdateProfile from "./pages/updateProfile";
 
 function App() {
+  const history = useHistory();
   return (
     <BrowserRouter>
-    <Switch>
-      <Route path='/signup'>
-        <AuthForm />
-      </Route>
-      <Route path='/welcome'>
-        <h1>Welcome to Expense Tracker</h1>
-      </Route>
-    </Switch>
+      <Switch>
+        <Route path="/signup">
+          <AuthForm />
+        </Route>
+        <Route exact path="/welcome">
+          <h1>Welcome to Expense Tracker</h1>
+          <a href="/profile">
+            <button>go to profile page</button>
+          </a>
+        </Route>
+        <Route path="/profile">
+          <UpdateProfile />
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }
