@@ -11,7 +11,9 @@ const AuthContext = React.createContext({
   email: "",
   setEmail: () => {},
   expItems: [],
-  addExpense: () => {}
+  addExpense: () => {},
+  deleteExpense: () => {},
+  editExpense: () => {}
 });
 
 export const AuthContextProvider = (props) => {
@@ -62,6 +64,20 @@ export const AuthContextProvider = (props) => {
     };
     setExpItems((prevExpItems) => [...prevExpItems, loadedExpItem]);
   };
+  const deleteExpense = async (id) => {
+    await axios.delete(`${firebaseDB}/${id}.json`);
+    setExpItems((prevExpItems) => prevExpItems.filter((expItem) => expItem.id !== id));
+  };
+
+  
+
+  const editExpense = async (id, amountSpent, description, category) => {
+    const resGet = await axios.get(`${firebaseDB}/${id}.json`)
+    amountSpent = resGet.data.amount
+    description = resGet.data.description
+    category = resGet.data.category
+  };
+  
 
   const loginHandler = (token) => {
     setToken(token);
@@ -110,7 +126,9 @@ export const AuthContextProvider = (props) => {
     email,
     setEmail: setEmailHandler,
     addExpense: addExpense,
-    expItems: expItems
+    expItems: expItems,
+    deleteExpense: deleteExpense,
+    editExpense: editExpense
   };
   // console.log(contextValue.email)
 

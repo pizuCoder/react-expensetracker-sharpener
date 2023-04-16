@@ -25,6 +25,12 @@ const [selectedCategory, setSelectedCategory] = useState("");
     // categoryRef.current.value = "";
     setSelectedCategory("Category")
   };
+  const handleEditExpense = (expItem) => {
+    amountSpentRef.current.value = expItem.amount;
+    descriptionRef.current.value = expItem.description;
+    setSelectedCategory(expItem.category);
+  }
+  
   return (
     <div style={{ padding: "1rem" }}>
       <Form>
@@ -89,7 +95,7 @@ const [selectedCategory, setSelectedCategory] = useState("");
           </Col>
         </Row>
       </Form>
-      <DailyExpDisplay />
+      <DailyExpDisplay onEditExpense={handleEditExpense} />
     </div>
   );
 }
