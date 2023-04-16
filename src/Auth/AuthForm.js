@@ -74,6 +74,8 @@ const AuthForm = () => {
       })
       .then((data) => {
         authCtx.login(data.idToken);
+        authCtx.setEmail(data.email)
+        // console.log(data.email)
         if(isLogin){
             history.replace("/welcome");
         }
@@ -86,6 +88,23 @@ const AuthForm = () => {
         setSignupInProgress(false);
       });
   };
+
+  const forgotPasswordHandler = () => {
+    const enteredEmail = emailInputRef.current.value;
+    const passUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCQ336T7-e3kArtljvrI5FIakMfAB-X6as'
+    fetch(passUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        requestType: "PASSWORD_RESET",
+        email: enteredEmail
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((error) => {})
+  }
 
   return (
     <section className={classes.auth}>
@@ -130,6 +149,13 @@ const AuthForm = () => {
       >
         {isLogin ? "Create new account" : "Login with existing account"}
       </button>
+    { isLogin && <button
+        type="button"
+        className={classes.toggle}
+        onClick={forgotPasswordHandler}
+      >
+          Forgot Password
+      </button>}
     </div>
   </form>
 </section>
