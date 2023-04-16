@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"
 
-const firebaseDB = 'https://expensetracker-sharpener-default-rtdb.firebaseio.com/expenses'
+
 
 const AuthContext = React.createContext({
   token: "",
@@ -24,6 +24,8 @@ export const AuthContextProvider = (props) => {
   const storedEmail = localStorage.getItem("email");
   const [email, setEmail] = useState(storedEmail);
   const [expItems, setExpItems] = useState([])
+
+  const firebaseDB = `https://expensetracker-sharpener-default-rtdb.firebaseio.com/${email.replace(/[.@]/g, "")}`
 
   useEffect(() => {
     const fetchData = async () => {
