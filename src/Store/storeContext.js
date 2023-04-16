@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios"
+
+const firebaseDB = 'https://expensetracker-sharpener-default-rtdb.firebaseio.com/expenses'
 
 const AuthContext = React.createContext({
   token: "",
@@ -19,13 +22,45 @@ export const AuthContextProvider = (props) => {
   const [email, setEmail] = useState(storedEmail);
   const [expItems, setExpItems] = useState([])
 
-  const addExpense = (amountSpent, description, category) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`${firebaseDB}.json`);
+      const data = response.data;
+      const loadedExpItems = [];
+
+      for (const key in data) {
+        loadedExpItems.push({
+          id: key,
+          amount: data[key].amount,
+          description: data[key].description,
+          category: data[key].category,
+        });
+      }
+
+      setExpItems(loadedExpItems);
+    };
+
+    fetchData();
+  }, []);
+
+  const addExpense = async(amountSpent, description, category) => {
     const newExpItem = {
       amount: amountSpent,
       description: description,
       category: category
     };
-    setExpItems((prevExpItems) => [...prevExpItems, newExpItem]);
+    const res = await axios.post(`${firebaseDB}.json`, newExpItem)
+    // const data = res.data
+    console.log(res)
+
+    const resGet = await axios.get(`${firebaseDB}/${res.data.name}.json`)
+    const loadedExpItem = {
+      id: res.data.name,
+      amount: resGet.data.amount,
+      description: resGet.data.description,
+      category: resGet.data.category,
+    };
+    setExpItems((prevExpItems) => [...prevExpItems, loadedExpItem]);
   };
 
   const loginHandler = (token) => {
