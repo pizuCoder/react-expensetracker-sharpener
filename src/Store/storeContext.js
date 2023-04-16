@@ -13,7 +13,8 @@ const AuthContext = React.createContext({
   expItems: [],
   addExpense: () => {},
   deleteExpense: () => {},
-  editExpense: () => {}
+  editExpense: () => {},
+  updateExpense: () => {}
 });
 
 export const AuthContextProvider = (props) => {
@@ -78,6 +79,26 @@ export const AuthContextProvider = (props) => {
     category = resGet.data.category
   };
   
+  const updateExpense = async (updatedExpense) => {
+    try {
+      const response = await axios.put(`${firebaseDB}/${updatedExpense.id}.json`, 
+        {
+          id: updatedExpense.id,
+          amount: updatedExpense.amount,
+          description: updatedExpense.description,
+          category: updatedExpense.category
+        },
+      );
+      window.location.reload(false)
+      
+      if (!response.ok) {
+        throw new Error('Failed to update expense');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
 
   const loginHandler = (token) => {
     setToken(token);
@@ -128,7 +149,8 @@ export const AuthContextProvider = (props) => {
     addExpense: addExpense,
     expItems: expItems,
     deleteExpense: deleteExpense,
-    editExpense: editExpense
+    editExpense: editExpense,
+    updateExpense: updateExpense
   };
   // console.log(contextValue.email)
 

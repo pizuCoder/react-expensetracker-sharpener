@@ -28,7 +28,7 @@ export default function DailyExpDisplay(props) {
                 variant="warning"
                 onClick={() => {
                   handleEditExpense(expItem);
-                  authContext.deleteExpense(expItem.id)
+                  
                 }}
               >
                 Edit

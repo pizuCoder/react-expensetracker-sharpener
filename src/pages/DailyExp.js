@@ -12,20 +12,46 @@ import Button from "react-bootstrap/Button";
 import DailyExpDisplay from "./DailyExpDisplay";
 
 export default function DailyExp() {
-  const { addExpense } = useContext(AuthContext);
+  const { addExpense, updateExpense , editExpense} = useContext(AuthContext);
   const amountSpentRef = useRef(null);
   const descriptionRef = useRef(null);
 //   const categoryRef = useRef(null);
 const [selectedCategory, setSelectedCategory] = useState("");
+const [selectedExpense, setSelectedExpense] = useState(null);
 
+  // const handleAddExpense = () => {
+  //   addExpense(amountSpentRef.current.value, descriptionRef.current.value, selectedCategory);
+  //   amountSpentRef.current.value = "";
+  //   descriptionRef.current.value = "";
+  //   // categoryRef.current.value = "";
+  //   setSelectedCategory("Category")
+  // };
   const handleAddExpense = () => {
-    addExpense(amountSpentRef.current.value, descriptionRef.current.value, selectedCategory);
+    const amountSpent = amountSpentRef.current.value;
+    const description = descriptionRef.current.value;
+    const category = selectedCategory;
+  
+    if (selectedExpense) {
+      const updatedExpense = {
+        id: selectedExpense.id,
+        amount: amountSpent,
+        description: description,
+        category: category
+      };
+      updateExpense(updatedExpense);
+      setSelectedExpense(null);
+    } else {
+      addExpense(amountSpent, description, category);
+    }
+  
     amountSpentRef.current.value = "";
     descriptionRef.current.value = "";
-    // categoryRef.current.value = "";
-    setSelectedCategory("Category")
+    setSelectedCategory("Category");
   };
+  
   const handleEditExpense = (expItem) => {
+    editExpense(expItem.id,expItem.amount, expItem.description, expItem.category );
+    setSelectedExpense(expItem);
     amountSpentRef.current.value = expItem.amount;
     descriptionRef.current.value = expItem.description;
     setSelectedCategory(expItem.category);
