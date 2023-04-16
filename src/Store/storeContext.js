@@ -7,6 +7,8 @@ const AuthContext = React.createContext({
   logout: () => {},
   email: "",
   setEmail: () => {},
+  expItems: [],
+  addExpense: () => {}
 });
 
 export const AuthContextProvider = (props) => {
@@ -15,6 +17,16 @@ export const AuthContextProvider = (props) => {
   const userIsLoggedIn = !!token;
   const storedEmail = localStorage.getItem("email");
   const [email, setEmail] = useState(storedEmail);
+  const [expItems, setExpItems] = useState([])
+
+  const addExpense = (amountSpent, description, category) => {
+    const newExpItem = {
+      amount: amountSpent,
+      description: description,
+      category: category
+    };
+    setExpItems((prevExpItems) => [...prevExpItems, newExpItem]);
+  };
 
   const loginHandler = (token) => {
     setToken(token);
@@ -62,6 +74,8 @@ export const AuthContextProvider = (props) => {
     logout: logoutHandler,
     email,
     setEmail: setEmailHandler,
+    addExpense: addExpense,
+    expItems: expItems
   };
   // console.log(contextValue.email)
 

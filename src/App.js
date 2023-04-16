@@ -1,9 +1,12 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import AuthForm from "./Auth/AuthForm";
 import UpdateProfile from "./pages/updateProfile";
 import VerifyEmail from "./Auth/VerifyEmail";
 import Logout from "./Auth/Logout";
+import DailyExp from "./pages/DailyExp";
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,9 +21,15 @@ function App() {
           </a>
           <VerifyEmail />
           <Logout />
+          <a href="/dailyexp">
+            <button>Daily Expenses</button>
+          </a>
         </Route>
         <Route path="/profile">
           <UpdateProfile />
+        </Route>
+        <Route path="/dailyexp">
+          <DailyExp />
         </Route>
       </Switch>
     </BrowserRouter>
