@@ -1,12 +1,16 @@
-import { useContext } from "react";
-import AuthContext from "../Store/storeContext";
+// import { useContext } from "react";
+// import AuthContext from "../Store/storeContext";
+import { useSelector } from 'react-redux';
+import { authActions } from '../redux/AuthReducer';
 
 export default function VerifyEmail() {
-  const authCtx = useContext(AuthContext);
+  // const authCtx = useContext(AuthContext);
+  const idToken = useSelector((state) => state.auth.token)
+
   function verifyEmailHandler() {
     
 
-    const idToken = authCtx.token;
+    
     const url =
       "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCQ336T7-e3kArtljvrI5FIakMfAB-X6as";
     const requestBody = {

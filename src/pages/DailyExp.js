@@ -1,6 +1,8 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from 'react-redux';
 
-import AuthContext from "../Store/storeContext";
+import { addExpense, editExpense, updateExpense } from "../redux/ExpReducer";
+// import AuthContext from "../Store/storeContext";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -12,20 +14,14 @@ import Button from "react-bootstrap/Button";
 import DailyExpDisplay from "./DailyExpDisplay";
 
 export default function DailyExp() {
-  const { addExpense, updateExpense , editExpense} = useContext(AuthContext);
+  const dispatch = useDispatch()
+  // const { addExpense, updateExpense , editExpense} = useContext(AuthContext);
   const amountSpentRef = useRef(null);
   const descriptionRef = useRef(null);
 //   const categoryRef = useRef(null);
 const [selectedCategory, setSelectedCategory] = useState("");
 const [selectedExpense, setSelectedExpense] = useState(null);
 
-  // const handleAddExpense = () => {
-  //   addExpense(amountSpentRef.current.value, descriptionRef.current.value, selectedCategory);
-  //   amountSpentRef.current.value = "";
-  //   descriptionRef.current.value = "";
-  //   // categoryRef.current.value = "";
-  //   setSelectedCategory("Category")
-  // };
   const handleAddExpense = () => {
     const amountSpent = amountSpentRef.current.value;
     const description = descriptionRef.current.value;
@@ -38,10 +34,12 @@ const [selectedExpense, setSelectedExpense] = useState(null);
         description: description,
         category: category
       };
-      updateExpense(updatedExpense);
+      // updateExpense(updatedExpense);
+      dispatch(updateExpense(updatedExpense))
       setSelectedExpense(null);
     } else {
-      addExpense(amountSpent, description, category);
+      // addExpense(amountSpent, description, category);
+      dispatch(addExpense(amountSpent, description, category))
     }
   
     amountSpentRef.current.value = "";
@@ -50,7 +48,9 @@ const [selectedExpense, setSelectedExpense] = useState(null);
   };
   
   const handleEditExpense = (expItem) => {
-    editExpense(expItem.id,expItem.amount, expItem.description, expItem.category );
+    // editExpense(expItem.id,expItem.amount, expItem.description, expItem.category );
+    dispatch(editExpense(expItem.id,expItem.amount, expItem.description, expItem.category))
+    
     setSelectedExpense(expItem);
     amountSpentRef.current.value = expItem.amount;
     descriptionRef.current.value = expItem.description;
@@ -88,18 +88,7 @@ const [selectedExpense, setSelectedExpense] = useState(null);
             </FloatingLabel>
           </Col>
           <Col>
-            {/* <DropdownButton
-              variant="outline-secondary"
-              title={"category"}
-              id="category-dropdown"
-              className="mb-2"
-            >
-              <Dropdown.Item onClick={() => categoryRef.current.value = "Food"}>Food</Dropdown.Item>
-              <Dropdown.Item onClick={() => categoryRef.current.value = "Entertainment"}>Entertainment</Dropdown.Item>
-              <Dropdown.Item onClick={() => categoryRef.current.value = "Groceries"}>Groceries</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item onClick={() => categoryRef.current.value = "Miscellanious"}>Miscellanious</Dropdown.Item>
-            </DropdownButton> */}
+           
             <Dropdown
   onSelect={(eventKey) => setSelectedCategory(eventKey)}
 >

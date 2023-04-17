@@ -1,13 +1,17 @@
-import { useContext } from "react";
-import AuthContext from "../Store/storeContext";
+// import { useContext } from "react";
+// import AuthContext from "../Store/storeContext";
+import { deleteExpense } from "../redux/ExpReducer";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 
 export default function DailyExpDisplay(props) {
-  const authContext = useContext(AuthContext);
+  const dispatch = useDispatch();
+  // const authContext = useContext(AuthContext);
   const handleEditExpense = (expItem) => {
     props.onEditExpense(expItem);
   };
-
+  // const cartItems = useSelector((state) => state.expenses);
+  // console.log(cartItems);
   return (
     <table>
       <thead>
@@ -17,8 +21,8 @@ export default function DailyExpDisplay(props) {
           <th>Category</th>
         </tr>
       </thead>
-      <tbody>
-        {authContext.expItems.map((expItem) => (
+      {/* <tbody>
+        {cartItems.map((expItem) => (
           <tr key={expItem.description}>
             <td>{expItem.amount}</td>
             <td>{expItem.description}</td>
@@ -28,7 +32,6 @@ export default function DailyExpDisplay(props) {
                 variant="warning"
                 onClick={() => {
                   handleEditExpense(expItem);
-                  
                 }}
               >
                 Edit
@@ -37,14 +40,15 @@ export default function DailyExpDisplay(props) {
             <td>
               <Button
                 variant="danger"
-                onClick={() => authContext.deleteExpense(expItem.id)}
+                // onClick={() => authContext.deleteExpense(expItem.id)}
+                onClick={() => dispatch(deleteExpense(expItem.id))}
               >
                 Delete
               </Button>
             </td>
           </tr>
         ))}
-      </tbody>
+      </tbody> */}
     </table>
   );
 }
