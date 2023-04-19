@@ -1,18 +1,19 @@
-import React, { useState, useContext, useEffect} from "react";
-import AuthContext from "../Store/storeContext";
+import React, { useState, useEffect} from "react";
+import { useSelector } from "react-redux";
+// import AuthContext from "../Store/storeContext";
 import classes from './updateProfile.module.css';
 import { useHistory } from "react-router-dom";
 
 function UpdateProfile() {
     const history = useHistory()
-  const authCtx = useContext(AuthContext);
+  // const authCtx = useContext(AuthContext);
   const [name, setName] = useState("");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [message, setMessage] = useState('')
-
+  const idToken = useSelector((state) => state.auth.token);
     // Fetch user account information and prefill the form fields
     useEffect(() => {
-        const idToken = authCtx.token;
+        
         const url = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCQ336T7-e3kArtljvrI5FIakMfAB-X6as";
         const requestBody = { idToken };
     
@@ -37,7 +38,7 @@ function UpdateProfile() {
           .catch((error) => {
             console.log(error);
           });
-      }, [authCtx.token]);
+      }, [idToken]);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -49,7 +50,7 @@ function UpdateProfile() {
 
   const handleUpdateProfile = (event) => {
     event.preventDefault();
-    const idToken = authCtx.token// get the Firebase Auth ID token for the user
+    // const idToken = useSelector((state) => state.auth.token)// get the Firebase Auth ID token for the user
     const url =
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCQ336T7-e3kArtljvrI5FIakMfAB-X6as";
     const requestBody = {

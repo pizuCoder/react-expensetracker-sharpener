@@ -5,7 +5,7 @@ import AuthForm from "./Auth/AuthForm";
 import UpdateProfile from "./pages/updateProfile";
 import VerifyEmail from "./Auth/VerifyEmail";
 import Logout from "./Auth/Logout";
-import DailyExp from "./pages/DailyExp";
+import DailyExpRedux from "./pages/DailyExpRedux";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <UpdateProfile />
         </Route>
         <Route path="/dailyexp">
-          <DailyExp />
+          <DailyExpRedux />
         </Route>
       </Switch>
     </BrowserRouter>

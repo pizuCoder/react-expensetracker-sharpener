@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from 'react-redux';
 
-import { addExpense, editExpense, updateExpense } from "../redux/ExpReducer";
+import { expActions } from "../redux/ExpReducer";
 // import AuthContext from "../Store/storeContext";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,7 +13,7 @@ import Button from "react-bootstrap/Button";
 
 import DailyExpDisplay from "./DailyExpDisplay";
 
-export default function DailyExp() {
+function DailyExp() {
   const dispatch = useDispatch()
   // const { addExpense, updateExpense , editExpense} = useContext(AuthContext);
   const amountSpentRef = useRef(null);
@@ -35,11 +35,13 @@ const [selectedExpense, setSelectedExpense] = useState(null);
         category: category
       };
       // updateExpense(updatedExpense);
-      dispatch(updateExpense(updatedExpense))
+      // dispatch(ExpSlice.updateExpense(updatedExpense))
+      dispatch(expActions.updateExistingExpense(updatedExpense))
       setSelectedExpense(null);
     } else {
       // addExpense(amountSpent, description, category);
-      dispatch(addExpense(amountSpent, description, category))
+
+      dispatch(expActions.addNewExpense({amountSpent, description, category}))
     }
   
     amountSpentRef.current.value = "";
@@ -49,7 +51,7 @@ const [selectedExpense, setSelectedExpense] = useState(null);
   
   const handleEditExpense = (expItem) => {
     // editExpense(expItem.id,expItem.amount, expItem.description, expItem.category );
-    dispatch(editExpense(expItem.id,expItem.amount, expItem.description, expItem.category))
+    dispatch(expActions.editExistingExpense(expItem.id,expItem.amount, expItem.description, expItem.category))
     
     setSelectedExpense(expItem);
     amountSpentRef.current.value = expItem.amount;

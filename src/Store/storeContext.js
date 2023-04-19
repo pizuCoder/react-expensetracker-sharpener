@@ -54,9 +54,10 @@ export const AuthContextProvider = (props) => {
       description: description,
       category: category
     };
+    // console.log(newExpItem)
     const res = await axios.post(`${firebaseDB}.json`, newExpItem)
     // const data = res.data
-    console.log(res)
+    // console.log(res)
 
     const resGet = await axios.get(`${firebaseDB}/${res.data.name}.json`)
     const loadedExpItem = {
@@ -163,4 +164,4 @@ export const AuthContextProvider = (props) => {
   );
 };
 
-export default AuthContext;
+// export default AuthContext;
