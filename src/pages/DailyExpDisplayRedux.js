@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 // import AuthContext from "../Store/storeContext";
 import { setExpense, deleteExpenseSlice } from "../redux/ExpReducer";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 
 export default function DailyExpDisplayRedux(props) {
+
   const email = useSelector((state) => state.auth.email);
   
   const firebaseDB = `https://expensetracker-sharpener-default-rtdb.firebaseio.com/${email.replace(
@@ -52,12 +53,19 @@ export default function DailyExpDisplayRedux(props) {
       deleteExpenseSlice(id)
     );   
   };
+  const totalAmount = useMemo(() => {
+    return cartItems.reduce((total, item) => total + Number(item.amount), 0);
+  }, [cartItems]);
 
+  // const[showPremium, setShowPremium] = useState(false)
   // if (loading) {
   //   return <div>Loading...</div>;
   // }
-
+// if(totalAmount >= 10000){
+//   setShowPremium(true)
+// }
   return (
+    <div>
     <table>
       <thead>
         <tr>
@@ -95,5 +103,9 @@ export default function DailyExpDisplayRedux(props) {
         ))}
       </tbody>
     </table>
+    
+    <div>Total Amount: {totalAmount}</div>
+    {totalAmount>=10000 && <Button variant="primary">Activate Premium</Button>}
+    </div>
   );
 }
