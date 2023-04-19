@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  premieum: false
 };
 
 const expenseSlice = createSlice({
@@ -42,8 +43,14 @@ const expenseSlice = createSlice({
         ),
       };
     },
+    setPremieum: (state, action) => {
+      return {
+        ...state,
+        premieum: !state.premieum
+      }
+    }
   }
 })
 
-export const { setExpense, addExpenseSlice, updateExpenseSlice, deleteExpenseSlice} = expenseSlice.actions;
+export const { setExpense, addExpenseSlice, updateExpenseSlice, deleteExpenseSlice, setPremieum} = expenseSlice.actions;
 export default expenseSlice;

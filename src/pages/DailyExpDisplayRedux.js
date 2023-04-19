@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo} from "react";
 // import AuthContext from "../Store/storeContext";
-import { setExpense, deleteExpenseSlice } from "../redux/ExpReducer";
+import { setExpense, deleteExpenseSlice, setPremieum } from "../redux/ExpReducer";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -63,7 +63,16 @@ export default function DailyExpDisplayRedux(props) {
   // }
 // if(totalAmount >= 10000){
 //   setShowPremium(true)
+
 // }
+
+function convertToCSV(items) {
+  const headers = ['Amount', 'Description', 'Category'];
+  const rows = items.map(item => [item.amount, item.description, item.category]);
+  const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
+  return csv;
+}
+const isPremieum = useSelector((state)=> state.expense.premieum)
   return (
     <div>
     <table>
@@ -105,7 +114,18 @@ export default function DailyExpDisplayRedux(props) {
     </table>
     
     <div>Total Amount: {totalAmount}</div>
-    {totalAmount>=10000 && <Button variant="primary">Activate Premium</Button>}
+    {totalAmount>=10000 && <Button variant="primary" onClick={() => dispatch(setPremieum())}>{isPremieum ? 'Deactivate':'Activate Premium'}</Button>}
+  {isPremieum && <Button variant="success" onClick={() => {
+const csv = convertToCSV(cartItems);
+const link = document.createElement('a');
+link.setAttribute('href', `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`);
+link.setAttribute('download', 'cartItems.csv');
+document.body.appendChild(link);
+link.click();
+}}>
+Download Cart Items as CSV
+</Button>}
+
     </div>
   );
 }
