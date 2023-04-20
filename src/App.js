@@ -32,7 +32,9 @@ function App() {
           <AuthForm />
         </Route>
         <Route exact path="/welcome">
+          <div style={{padding: '1rem'}}>
           <h1>Welcome to Expense Tracker</h1>
+          </div>
         </Route>
         <Route path="/profile">
           <UpdateProfile />
