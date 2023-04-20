@@ -3,6 +3,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../redux/themeReducer";
+import Button from "react-bootstrap/Button";
 
 const ThemeToggle = () => {
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
@@ -14,9 +15,9 @@ const ThemeToggle = () => {
 
   return (
     <div>
-      <button onClick={handleToggleTheme}>
+      <Button onClick={handleToggleTheme} variant= {isDarkTheme ? "light" : "dark"}>
         {isDarkTheme ? "Light" : "Dark"} Theme
-      </button>
+      </Button>
     </div>
   );
 };

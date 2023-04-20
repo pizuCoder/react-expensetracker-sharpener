@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 // import AuthContext from "../Store/storeContext";
 import { useDispatch } from "react-redux";
 import { authActions } from "../redux/AuthReducer";
+import Button from "react-bootstrap/Button";
 
 export default function Logout(){
     // const authCtx = useContext(AuthContext)
@@ -17,6 +18,6 @@ export default function Logout(){
       };
     
 return(
-    <button onClick={logoutHandler}>Logout</button>
+    <Button onClick={logoutHandler}>Logout</Button>
 )
 }

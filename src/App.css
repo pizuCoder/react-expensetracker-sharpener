@@ -1,6 +1,13 @@
 /* App.css */
+body {
+  background-color: #fff; /* default background color */
+}
 
-.App {
+body.dark-theme {
+  background-color: #222; /* dark background color */
+}
+
+/* .App {
   background-color: #fff;
   color: #333;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -9,4 +16,4 @@
 .dark {
   background-color: #333;
   color: #fff;
-}
+} */

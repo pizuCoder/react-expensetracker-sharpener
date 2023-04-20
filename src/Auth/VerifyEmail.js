@@ -1,7 +1,7 @@
 // import { useContext } from "react";
 // import AuthContext from "../Store/storeContext";
 import { useSelector } from 'react-redux';
-import { authActions } from '../redux/AuthReducer';
+// import { authActions } from '../redux/AuthReducer';
 
 export default function VerifyEmail() {
   // const authCtx = useContext(AuthContext);
@@ -29,7 +29,9 @@ export default function VerifyEmail() {
           console.log("Failed to verify email");
           throw new Error("Failed to update profile");
         }
-
+        if(response.ok){
+          window.alert('verification mail sent')
+        }
         return response.json();
       })
       .then((data) => {
@@ -41,5 +43,5 @@ export default function VerifyEmail() {
         // handle error
       });
   }
-  return (<button onClick={verifyEmailHandler}>verify email</button>);
+  return (<div onClick={verifyEmailHandler}>verify email</div>);
 }

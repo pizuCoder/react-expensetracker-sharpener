@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-
+import { useEffect } from "react";
 import AuthForm from "./Auth/AuthForm";
 import UpdateProfile from "./pages/updateProfile";
 import TheNav from "./pages/theNav";
@@ -12,11 +12,21 @@ function App() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
   const isDarkTheme = useSelector(state => state.theme.isDarkTheme);
 
+  useEffect(() => {
+    const body = document.body;
+    if (isDarkTheme) {
+      body.classList.add('dark-theme');
+    } else {
+      body.classList.remove('dark-theme');
+    }
+  }, [isDarkTheme]);
+
+
   return (
-    <div className={isDarkTheme ? "App dark" : "App"}>
+    <div >
       
     <BrowserRouter>
-    {isLoggedIn && <TheNav />}
+    {isLoggedIn && <TheNav darkMode = {isDarkTheme}/>}
       <Switch>
         <Route path="/signup">
           <AuthForm />
@@ -28,7 +38,7 @@ function App() {
           <UpdateProfile />
         </Route>
         <Route path="/dailyexp">
-          <DailyExpRedux />
+          <DailyExpRedux darkMode = {isDarkTheme}/>
         </Route>
       </Switch>
     </BrowserRouter>

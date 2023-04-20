@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import './DailyExpRedux.css'
 
 import { addExpenseSlice, updateExpenseSlice} from "../redux/ExpReducer";
 // import AuthContext from "../Store/storeContext";
@@ -14,7 +15,8 @@ import Button from "react-bootstrap/Button";
 
 import DailyExpDisplayRedux from "./DailyExpDisplayRedux";
 
-export default function DailyExpRedux() {
+
+export default function DailyExpRedux(props) {
   const email = useSelector((state) => state.auth.email);
   const firebaseDB = `https://expensetracker-sharpener-default-rtdb.firebaseio.com/${email.replace(
     /[.@]/g,
@@ -122,63 +124,125 @@ export default function DailyExpRedux() {
     setSelectedCategory(expItem.category);
   };
 
-  return (
-    <div style={{ padding: "1rem" }}>
-      <Form>
-        <Row>
-          <Col>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Amount Spent"
-              className="mb-2"
-            >
-              <Form.Control
-                type="number"
-                placeholder="Enter amount in Rs"
-                ref={amountSpentRef}
-              />
-            </FloatingLabel>
-          </Col>
-          <Col>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Description"
-              className="mb-2"
-            >
-              <Form.Control
-                type="text"
-                placeholder="Expenditure Description"
-                ref={descriptionRef}
-              />
-            </FloatingLabel>
-          </Col>
-          <Col>
-            <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                {selectedCategory ? selectedCategory : "Category"}
-              </Dropdown.Toggle>
+  // return (
+  //   <div style={{ padding: "1rem" }}>
+  //     <Form>
+  //       <Row>
+  //         <Col>
+  //           <FloatingLabel
+  //             controlId="floatingInput"
+  //             label="Amount Spent"
+  //             className="mb-2"
+  //           >
+  //             <Form.Control
+  //               type="number"
+  //               placeholder="Enter amount in Rs"
+  //               ref={amountSpentRef}
+  //             />
+  //           </FloatingLabel>
+  //         </Col>
+  //         <Col>
+  //           <FloatingLabel
+  //             controlId="floatingInput"
+  //             label="Description"
+  //             className="mb-2"
+  //           >
+  //             <Form.Control
+  //               type="text"
+  //               placeholder="Expenditure Description"
+  //               ref={descriptionRef}
+  //             />
+  //           </FloatingLabel>
+  //         </Col>
+  //         <Col>
+  //           <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
+  //             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+  //               {selectedCategory ? selectedCategory : "Category"}
+  //             </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="Food">Food</Dropdown.Item>
-                <Dropdown.Item eventKey="Entertainment">
-                  Entertainment
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="Groceries">Groceries</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item eventKey="Miscellaneous">
-                  Miscellaneous
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-          <Col>
-            <Button variant="dark" onClick={handleAddExpense}>
-              Add
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-      <DailyExpDisplayRedux onEditExpense={handleEditExpense} />
-    </div>
-  );
+  //             <Dropdown.Menu>
+  //               <Dropdown.Item eventKey="Food">Food</Dropdown.Item>
+  //               <Dropdown.Item eventKey="Entertainment">
+  //                 Entertainment
+  //               </Dropdown.Item>
+  //               <Dropdown.Item eventKey="Groceries">Groceries</Dropdown.Item>
+  //               <Dropdown.Divider />
+  //               <Dropdown.Item eventKey="Miscellaneous">
+  //                 Miscellaneous
+  //               </Dropdown.Item>
+  //             </Dropdown.Menu>
+  //           </Dropdown>
+  //         </Col>
+  //         <Col>
+  //           <Button variant="dark" onClick={handleAddExpense}>
+  //             Add
+  //           </Button>
+  //         </Col>
+  //       </Row>
+  //     </Form>
+  //     <DailyExpDisplayRedux onEditExpense={handleEditExpense} darkMode = {props.darkMode}/>
+  //   </div>
+  // );
+
+return (
+  <div style={{ padding: "1rem", backgroundColor: props.darkMode ? "#222" : "white", color: props.darkMode ? "white" : "black" }}>
+    <Form>
+      <Row>
+        <Col>
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Amount Spent"
+            className="mb-2"
+          >
+            <Form.Control
+              type="number"
+              placeholder="Enter amount in Rs"
+              ref={amountSpentRef}
+              style={{ backgroundColor: props.darkMode ? "#222" : "white", color: props.darkMode ? "white" : "black", border: props.darkMode ? "1px solid white" : "1px solid #ced4da" }}
+            />
+          </FloatingLabel>
+        </Col>
+        <Col>
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Description"
+            className="mb-2"
+          >
+            <Form.Control
+              type="text"
+              placeholder="Expenditure Description"
+              ref={descriptionRef}
+              style={{ backgroundColor: props.darkMode ? "#222" : "white", color: props.darkMode ? "white" : "black", border: props.darkMode ? "1px solid white" : "1px solid #ced4da" }}
+            />
+          </FloatingLabel>
+        </Col>
+        <Col>
+          <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
+            <Dropdown.Toggle variant={props.darkMode ? "light" : "secondary"} id="dropdown-basic">
+              {selectedCategory ? selectedCategory : "Category"}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className={props.darkMode ? "dropdown-menu-dark" : ""}>
+              <Dropdown.Item eventKey="Food">Food</Dropdown.Item>
+              <Dropdown.Item eventKey="Entertainment">
+                Entertainment
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Groceries">Groceries</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="Miscellaneous">
+                Miscellaneous
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col>
+          <Button variant={props.darkMode ? "light" : "dark"} onClick={handleAddExpense}>
+            Add
+          </Button>
+        </Col>
+      </Row>
+    </Form>
+    <DailyExpDisplayRedux onEditExpense={handleEditExpense} darkMode={props.darkMode} />
+  </div>
+);
 }
