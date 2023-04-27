@@ -14,7 +14,7 @@ export default function Logout(){
     const logoutHandler = () => {
         // authCtx.logout();
         dispatch(authActions.logout())
-        history.replace('/signup')
+        history.replace('/')
       };
     
 return(

@@ -12,7 +12,7 @@ export default function TheNav(props) {
       <div style={{ backgroundColor: props.darkMode ? '#333' : '#f8f9fa'}}>
         <Navbar expand="md" variant="light" style={{ borderBottom: '1px solid #dee2e6'  }}>
           <Container style={{color: props.darkMode ? '#f8f9fa' : '#6c757d' }}>
-            <Navbar.Brand href="/profile" style={{ fontWeight: 'bold', color: props.darkMode ? '#f8f9fa' : '#6c757d' }}>
+            <Navbar.Brand href="/welcome" style={{ fontWeight: 'bold', color: props.darkMode ? '#f8f9fa' : '#6c757d' }}>
               Expense Tracker
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-nav" />

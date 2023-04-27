@@ -28,7 +28,7 @@ function App() {
     <BrowserRouter>
     {isLoggedIn && <TheNav darkMode = {isDarkTheme}/>}
       <Switch>
-        <Route path="/signup">
+        <Route exact path="/">
           <AuthForm />
         </Route>
         <Route exact path="/welcome">
