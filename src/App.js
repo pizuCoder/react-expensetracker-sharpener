@@ -7,6 +7,8 @@ import UpdateProfile from "./pages/updateProfile";
 import TheNav from "./pages/theNav";
 import DailyExpRedux from "./pages/DailyExpRedux";
 import { useSelector } from "react-redux";
+import Welcome from "./pages/welcome";
+import VerifyEmail from './Auth/VerifyEmail'
 
 function App() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
@@ -32,12 +34,16 @@ function App() {
           <AuthForm />
         </Route>
         <Route exact path="/welcome">
-          <div style={{padding: '1rem'}}>
-          <h1>Welcome to Expense Tracker</h1>
-          </div>
+          
+          {/* <h1>Welcome to Expense Tracker</h1> */}
+          <Welcome />
+          
         </Route>
         <Route path="/profile">
           <UpdateProfile />
+        </Route>
+        <Route path="/verify">
+          <VerifyEmail />
         </Route>
         <Route path="/dailyexp">
           <DailyExpRedux darkMode = {isDarkTheme}/>

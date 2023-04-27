@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import VerifyEmail from '../Auth/VerifyEmail';
+
 import Logout from '../Auth/Logout';
 import ThemeToggle from './themeToggle';
 import { useSelector } from 'react-redux';
@@ -21,8 +21,8 @@ export default function TheNav(props) {
                 <Nav.Link href="/profile" style={{ fontWeight: 'bold', color: props.darkMode ? '#f8f9fa' : '#6c757d' }}>
                   Profile Page
                 </Nav.Link>
-                <Nav.Link href="#" style={{ fontWeight: 'bold', color: props.darkMode ? '#f8f9fa' : '#6c757d' }}>
-                  <VerifyEmail />
+                <Nav.Link href="/verify" style={{ fontWeight: 'bold', color: props.darkMode ? '#f8f9fa' : '#6c757d' }}>
+                  Verify Email
                 </Nav.Link>
                 <Nav.Link href="/dailyexp" style={{ fontWeight: 'bold', color: props.darkMode ? '#f8f9fa' : '#6c757d' }}>
                   Daily Expenses
